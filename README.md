@@ -1,54 +1,33 @@
-# Proxy Search Website
+# Search Proxy
 
-A simple web application that allows you to search the web through a proxy.
+A lightweight web search app that uses a backend proxy to fetch and display search results without browser CORS issues.
 
 ## Features
 
-- Clean, dark-themed UI
-- Server-side proxy to avoid CORS issues
-- Search via DuckDuckGo
-- Fast and responsive
+- Search via DuckDuckGo or Bing
+- Clean modern UI
+- Backend proxy via Express.js
+- Mobile responsive layout
 
-## Installation
-
-1. Clone this repository:
-
-```bash
-git clone https://github.com/luisthemonkey123/proxy-search-website.git
-cd proxy-search-website
-```
-
-2. Install dependencies:
+## Run locally
 
 ```bash
 npm install
-```
-
-3. Start the server:
-
-```bash
 npm start
 ```
 
-4. Open your browser and go to:
+Then open:
 
-```
+```text
 http://localhost:3000
 ```
 
-## How it works
+## Deployment ideas
 
-1. User types a search query in the browser
-2. Frontend sends request to `/api/search?q=...`
-3. Backend server fetches search results from DuckDuckGo
-4. Results are parsed and returned as JSON
-5. Frontend displays results in a nice card layout
+- Vercel or Render
+- GitHub Pages for the frontend + separate backend deploy
+- Docker container
 
-## Dependencies
+## Notes
 
-- **Express.js** - Web server framework
-- **Cheerio** - HTML parsing library
-
-## License
-
-MIT
+This is a demo/proxy project for learning and local testing. Search engines may block automated scraping or change their markup over time.

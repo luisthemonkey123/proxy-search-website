@@ -8,49 +8,14 @@
   </head>
   <body>
     <main class="page-shell">
-      <section id="setup-gate" class="gate card">
+      <section class="card hero">
         <div class="brand">SearchProxy</div>
-        <p class="eyebrow">Chromebook Edition</p>
-        <h1>Run SearchProxy on your Chromebook</h1>
+        <p class="eyebrow">No Linux required</p>
+        <h1>Search the web through a hosted proxy.</h1>
         <p class="lead">
-          You can run this app directly on your Chromebook using Linux (Beta). No downloads needed.
+          This version is ready to deploy to Vercel, Render, or any browser-based host.
+          You do not need Linux or a local machine setup.
         </p>
-
-        <div class="setup-methods">
-          <div class="method">
-            <h3>Option 1: Linux Terminal (Recommended)</h3>
-            <p>Enable Linux on your Chromebook, then run:</p>
-            <div class="code-block">
-              <code>git clone https://github.com/luisthemonkey123/proxy-search-website.git</code>
-            </div>
-            <div class="code-block">
-              <code>cd proxy-search-website && npm install && npm start</code>
-            </div>
-            <p class="hint">Then open <strong>http://localhost:3000</strong></p>
-            <button id="linux-ready" class="button primary" type="button">I've started the app</button>
-          </div>
-
-          <div class="method">
-            <h3>Option 2: Cloud IDE (No installation)</h3>
-            <p>Fork and run this project on GitHub Codespaces:</p>
-            <a href="https://github.com/luisthemonkey123/proxy-search-website/fork" class="button secondary" target="_blank">
-              Fork on GitHub
-            </a>
-            <button id="codespaces-ready" class="button secondary" type="button">I'm using Codespaces</button>
-          </div>
-        </div>
-
-        <div id="setup-status" class="status">Choose an option above to get started.</div>
-      </section>
-
-      <section id="search-app" class="search-app card hidden" aria-hidden="true">
-        <header class="topbar">
-          <div class="brand">SearchProxy</div>
-          <button id="close-app" class="text-button" type="button">Settings</button>
-        </header>
-
-        <p class="eyebrow">Chromebook Ready</p>
-        <h1>Search the web through your own proxy.</h1>
 
         <form id="search-form" class="search-form">
           <input id="search-input" type="search" placeholder="Search anything..." autocomplete="off" />
@@ -58,13 +23,14 @@
             <option value="duckduckgo">DuckDuckGo</option>
             <option value="bing">Bing</option>
           </select>
-          <button class="button primary" type="submit">Search</button>
+          <button type="submit" class="button primary">Search</button>
         </form>
 
         <div id="status" class="status">Ready to search.</div>
         <section id="results" class="results" aria-live="polite"></section>
       </section>
     </main>
+
     <script src="/app.js"></script>
   </body>
 </html>

@@ -1,42 +1,33 @@
-# SearchProxy for Chromebook
+# SearchProxy
 
-A lightweight web search app optimized for Chromebook. Run directly in Linux (Beta) or GitHub Codespaces.
+A browser-based search app designed to run without Linux. It works by deploying the backend to a hosted platform such as Vercel, Render, or GitHub Codespaces.
 
-## Option 1: Linux (Beta) on Chromebook
-
-Enable Linux on your Chromebook, then:
+## Local run
 
 ```bash
-git clone https://github.com/luisthemonkey123/proxy-search-website.git
-cd proxy-search-website
 npm install
 npm start
 ```
 
 Open: `http://localhost:3000`
 
-## Option 2: GitHub Codespaces (Cloud IDE)
+## No-Linux deployment
 
-1. Fork this repo on GitHub
-2. Open with Codespaces
-3. Run:
-   ```bash
-   npm install
-   npm start
-   ```
+Use a hosted service like Vercel:
 
-## Features
+1. Push this repo to GitHub
+2. Import it into Vercel
+3. Click Deploy
+4. The app starts in the cloud and no Linux is required
 
-- Search via DuckDuckGo or Bing
-- Private, ad-free results
-- Works offline (after startup)
-- Mobile-friendly for Chromebook tablets
+## Why this is the best no-Linux option
 
-## Troubleshooting
+A normal browser cannot fetch arbitrary search results directly without CORS restrictions.
+The server-side proxy keeps the app working and avoids browser security blocks.
 
-**Linux not available?** Use Codespaces instead (free).
+## Deploy target
 
-**Port 3000 in use?** Change it:
-```bash
-PORT=8000 npm start
-```
+- Vercel
+- Render
+- Railway
+- GitHub Codespaces

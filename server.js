@@ -2,62 +2,60 @@ import express from "express";
 import { load } from "cheerio";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 
+function parseDuckDuckGo(html) {
+  const $ = load(html);
+  const results = [];
+  $(".result").each((_, element) => {
+    const title = $(element).find(".result-link").first().text().trim();
+    const url = $(element).find(".result-link").first().attr("href") || "#";
+    const snippet = $(element).find(".result-snippet").first().text().trim();
+    if (title || snippet) results.push({ title, url, snippet });
+  });
+  return results.slice(0, 10);
+}
+
+function parseBing(html) {
+  const $ = load(html);
+  const results = [];
+  $(".b_algo").each((_, element) => {
+    const title = $(element).find("h2 a").first().text().trim();
+    const url = $(element).find("h2 a").first().attr("href") || "#";
+    const snippet = $(element).find(".b_caption p").first().text().trim();
+    if (title || snippet) results.push({ title, url, snippet });
+  });
+  return results.slice(0, 10);
+}
+
 app.get("/api/search", async (req, res) => {
   const query = (req.query.q || "").trim();
+  const engine = (req.query.engine || "duckduckgo").toLowerCase();
 
-  if (!query) {
-    return res.json({ query: "", results: [] });
-  }
+  if (!query) return res.json({ query: "", results: [] });
 
   try {
-    const url = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+    const url = engine === "bing" 
+      ? `https://www.bing.com/search?q=${encodeURIComponent(query)}`
+      : `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
 
     const response = await fetch(url, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (compatible; ProxySearch/1.0; +https://example.com)"
-      }
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; SearchProxy/1.0)" }
     });
 
-    if (!response.ok) {
-      throw new Error(`Search provider returned ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Search provider returned ${response.status}`);
 
     const html = await response.text();
-    const $ = load(html);
+    const results = engine === "bing" ? parseBing(html) : parseDuckDuckGo(html);
 
-    const results = [];
-
-    $(".result").each((index, element) => {
-      const title = $(element).find(".result-link").first().text().trim();
-      const link = $(element).find(".result-link").first().attr("href") || "#";
-      const snippet = $(element).find(".result-snippet").first().text().trim();
-
-      if (title || snippet) {
-        results.push({
-          title,
-          link,
-          snippet
-        });
-      }
-    });
-
-    res.json({
-      query,
-      results: results.slice(0, 10)
-    });
+    res.json({ query, engine, results });
   } catch (error) {
-    res.status(500).json({
-      error: "Search failed. Please try again.",
-      details: error.message
-    });
+    res.status(500).json({ error: "Search failed. Please try again.", details: error.message });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Proxy search app running at http://localhost:${PORT}`);
+  console.log(`SearchProxy running at http://localhost:${PORT}`);
 });

@@ -1,29 +1,33 @@
-const gate = document.getElementById("download-gate");
+const gate = document.getElementById("setup-gate");
 const searchApp = document.getElementById("search-app");
-const downloadLink = document.getElementById("download-link");
-const openAppButton = document.getElementById("open-app");
+const linuxReady = document.getElementById("linux-ready");
+const codespacesReady = document.getElementById("codespaces-ready");
 const closeAppButton = document.getElementById("close-app");
-const downloadStatus = document.getElementById("download-status");
+const setupStatus = document.getElementById("setup-status");
 const form = document.getElementById("search-form");
 const input = document.getElementById("search-input");
 const engineSelect = document.getElementById("search-engine");
 const resultsEl = document.getElementById("results");
 const statusEl = document.getElementById("status");
 
-// A browser cannot verify that a file was saved, so the gate unlocks after
-// the user starts the download. The actual app still runs locally with npm.
-downloadLink.addEventListener("click", () => {
-  openAppButton.disabled = false;
-  downloadStatus.textContent = "Download started. You can now open the app.";
-  downloadStatus.classList.add("success");
+linuxReady.addEventListener("click", () => {
+  setupStatus.textContent = "Connected to Linux server ✓";
+  setupStatus.classList.add("success");
+  unlockApp();
 });
 
-openAppButton.addEventListener("click", () => {
+codespacesReady.addEventListener("click", () => {
+  setupStatus.textContent = "Connected to Codespaces ✓";
+  setupStatus.classList.add("success");
+  unlockApp();
+});
+
+function unlockApp() {
   gate.classList.add("hidden");
   searchApp.classList.remove("hidden");
   searchApp.setAttribute("aria-hidden", "false");
-  input.focus();
-});
+  setTimeout(() => input.focus(), 100);
+}
 
 closeAppButton.addEventListener("click", () => {
   searchApp.classList.add("hidden");

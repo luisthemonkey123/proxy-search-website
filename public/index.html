@@ -8,43 +8,48 @@
   </head>
   <body>
     <main class="page-shell">
-      <section id="download-gate" class="gate card">
+      <section id="setup-gate" class="gate card">
         <div class="brand">SearchProxy</div>
-        <p class="eyebrow">Download required</p>
-        <h1>Download the app before opening SearchProxy.</h1>
+        <p class="eyebrow">Chromebook Edition</p>
+        <h1>Run SearchProxy on your Chromebook</h1>
         <p class="lead">
-          Download the project, install its dependencies, and run it on your own computer.
-          The search page will unlock after you start the download.
+          You can run this app directly on your Chromebook using Linux (Beta). No downloads needed.
         </p>
-        <div class="gate-actions">
-          <a
-            id="download-link"
-            class="button primary"
-            href="https://github.com/luisthemonkey123/proxy-search-website/archive/refs/heads/main.zip"
-            download
-          >
-            Download SearchProxy
-          </a>
-          <button id="open-app" class="button secondary" type="button" disabled>
-            Open SearchProxy
-          </button>
+
+        <div class="setup-methods">
+          <div class="method">
+            <h3>Option 1: Linux Terminal (Recommended)</h3>
+            <p>Enable Linux on your Chromebook, then run:</p>
+            <div class="code-block">
+              <code>git clone https://github.com/luisthemonkey123/proxy-search-website.git</code>
+            </div>
+            <div class="code-block">
+              <code>cd proxy-search-website && npm install && npm start</code>
+            </div>
+            <p class="hint">Then open <strong>http://localhost:3000</strong></p>
+            <button id="linux-ready" class="button primary" type="button">I've started the app</button>
+          </div>
+
+          <div class="method">
+            <h3>Option 2: Cloud IDE (No installation)</h3>
+            <p>Fork and run this project on GitHub Codespaces:</p>
+            <a href="https://github.com/luisthemonkey123/proxy-search-website/fork" class="button secondary" target="_blank">
+              Fork on GitHub
+            </a>
+            <button id="codespaces-ready" class="button secondary" type="button">I'm using Codespaces</button>
+          </div>
         </div>
-        <p id="download-status" class="status">You must download the project first.</p>
-        <ol class="steps">
-          <li>Extract the downloaded ZIP file.</li>
-          <li>Open a terminal in the extracted folder.</li>
-          <li>Run <code>npm install</code>, then <code>npm start</code>.</li>
-          <li>Visit <code>http://localhost:3000</code>.</li>
-        </ol>
+
+        <div id="setup-status" class="status">Choose an option above to get started.</div>
       </section>
 
       <section id="search-app" class="search-app card hidden" aria-hidden="true">
         <header class="topbar">
           <div class="brand">SearchProxy</div>
-          <button id="close-app" class="text-button" type="button">Back</button>
+          <button id="close-app" class="text-button" type="button">Settings</button>
         </header>
 
-        <p class="eyebrow">Private, simple, fast</p>
+        <p class="eyebrow">Chromebook Ready</p>
         <h1>Search the web through your own proxy.</h1>
 
         <form id="search-form" class="search-form">

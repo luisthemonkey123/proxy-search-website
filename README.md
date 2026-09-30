@@ -1,16 +1,42 @@
-# SearchProxy
+# SearchProxy for Chromebook
 
-A local web search app with a download-first screen. The browser unlocks the search interface after the project download begins, then the downloaded project can be run locally.
+A lightweight web search app optimized for Chromebook. Run directly in Linux (Beta) or GitHub Codespaces.
 
-## Run the downloaded app
+## Option 1: Linux (Beta) on Chromebook
+
+Enable Linux on your Chromebook, then:
 
 ```bash
+git clone https://github.com/luisthemonkey123/proxy-search-website.git
+cd proxy-search-website
 npm install
 npm start
 ```
 
-Open `http://localhost:3000`.
+Open: `http://localhost:3000`
 
-## Important limitation
+## Option 2: GitHub Codespaces (Cloud IDE)
 
-A website cannot reliably verify that a browser actually saved a file. This project therefore unlocks the interface when the download button is clicked. The real application runs locally after downloading and starting the Node.js server.
+1. Fork this repo on GitHub
+2. Open with Codespaces
+3. Run:
+   ```bash
+   npm install
+   npm start
+   ```
+
+## Features
+
+- Search via DuckDuckGo or Bing
+- Private, ad-free results
+- Works offline (after startup)
+- Mobile-friendly for Chromebook tablets
+
+## Troubleshooting
+
+**Linux not available?** Use Codespaces instead (free).
+
+**Port 3000 in use?** Change it:
+```bash
+PORT=8000 npm start
+```

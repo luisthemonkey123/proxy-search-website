@@ -1,0 +1,63 @@
+import express from "express";
+import { load } from "cheerio";
+
+const app = express();
+const PORT = 3000;
+
+app.use(express.static("public"));
+
+app.get("/api/search", async (req, res) => {
+  const query = (req.query.q || "").trim();
+
+  if (!query) {
+    return res.json({ query: "", results: [] });
+  }
+
+  try {
+    const url = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (compatible; ProxySearch/1.0; +https://example.com)"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Search provider returned ${response.status}`);
+    }
+
+    const html = await response.text();
+    const $ = load(html);
+
+    const results = [];
+
+    $(".result").each((index, element) => {
+      const title = $(element).find(".result-link").first().text().trim();
+      const link = $(element).find(".result-link").first().attr("href") || "#";
+      const snippet = $(element).find(".result-snippet").first().text().trim();
+
+      if (title || snippet) {
+        results.push({
+          title,
+          link,
+          snippet
+        });
+      }
+    });
+
+    res.json({
+      query,
+      results: results.slice(0, 10)
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "Search failed. Please try again.",
+      details: error.message
+    });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Proxy search app running at http://localhost:${PORT}`);
+});

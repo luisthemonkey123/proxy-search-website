@@ -3,27 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proxy Search</title>
+    <title>SearchProxy</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Proxy Search</h1>
+    <main class="page-shell">
+      <section id="download-gate" class="gate card">
+        <div class="brand">SearchProxy</div>
+        <p class="eyebrow">Download required</p>
+        <h1>Download the app before opening SearchProxy.</h1>
+        <p class="lead">
+          Download the project, install its dependencies, and run it on your own computer.
+          The search page will unlock after you start the download.
+        </p>
+        <div class="gate-actions">
+          <a
+            id="download-link"
+            class="button primary"
+            href="https://github.com/luisthemonkey123/proxy-search-website/archive/refs/heads/main.zip"
+            download
+          >
+            Download SearchProxy
+          </a>
+          <button id="open-app" class="button secondary" type="button" disabled>
+            Open SearchProxy
+          </button>
+        </div>
+        <p id="download-status" class="status">You must download the project first.</p>
+        <ol class="steps">
+          <li>Extract the downloaded ZIP file.</li>
+          <li>Open a terminal in the extracted folder.</li>
+          <li>Run <code>npm install</code>, then <code>npm start</code>.</li>
+          <li>Visit <code>http://localhost:3000</code>.</li>
+        </ol>
+      </section>
 
-      <form id="search-form">
-        <input
-          id="search-input"
-          type="text"
-          placeholder="Search the web..."
-          autocomplete="off"
-        />
-        <button type="submit">Search</button>
-      </form>
+      <section id="search-app" class="search-app card hidden" aria-hidden="true">
+        <header class="topbar">
+          <div class="brand">SearchProxy</div>
+          <button id="close-app" class="text-button" type="button">Back</button>
+        </header>
 
-      <div id="status" class="status"></div>
-      <div id="results" class="results"></div>
-    </div>
+        <p class="eyebrow">Private, simple, fast</p>
+        <h1>Search the web through your own proxy.</h1>
 
+        <form id="search-form" class="search-form">
+          <input id="search-input" type="search" placeholder="Search anything..." autocomplete="off" />
+          <select id="search-engine" aria-label="Search engine">
+            <option value="duckduckgo">DuckDuckGo</option>
+            <option value="bing">Bing</option>
+          </select>
+          <button class="button primary" type="submit">Search</button>
+        </form>
+
+        <div id="status" class="status">Ready to search.</div>
+        <section id="results" class="results" aria-live="polite"></section>
+      </section>
+    </main>
     <script src="/app.js"></script>
   </body>
 </html>
